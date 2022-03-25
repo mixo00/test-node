@@ -39,3 +39,5 @@ app.post('/calculate', (req: Request<Calculate>, res: Response<CalculateRes | st
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+module.exports = app;

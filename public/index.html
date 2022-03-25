@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hola soy el calculador de primos</h1>
+    <hr />
+    <h3>ingresa un numero</h3>
+    <input id="valueInput" type="text" />
+    <button id="button" type="button">buscar</button>
+    <br />
+    <div id="error"></div>
+    <hr />
+    <h3 id="title"></h3>
+    <div id="somosprimos"></div>
+  </body>
+  <script>
+    document.getElementById('button').addEventListener('click', () => {
+      let number = document.getElementById('valueInput').value;
+      document.getElementById('error').innerHTML = '';
+      document.getElementById('somosprimos').innerHTML = '';
+      document.getElementById('title').innerHTML = '';
+
+      fetch('http://localhost:3000/calculate', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ number: parseInt(number) }),
+      })
+        .then(async (res) => {
+          if (!res.ok) {
+            throw new Error(await res.json());
+          }
+          const { numbers } = await res.json();
+          document.getElementById('title').innerHTML = 'Los numeros primos que encontre son';
+          document.getElementById('somosprimos').innerHTML = numbers.join(', ');
+        })
+        .catch((error) => {
+          document.getElementById('error').innerHTML = error.toString();
+        });
+    });
+  </script>
+</html>

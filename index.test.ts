@@ -9,6 +9,14 @@ describe('status integration tests', () => {
     await request(app).post('/calculate').set('Accept', 'application/json').expect(StatusCodes.BAD_REQUEST);
   });
 
+  it('should post the error with letter', async () => {
+    await request(app).post('/calculate').send({ number: 'F' }).set('Accept', 'application/json').expect(StatusCodes.BAD_REQUEST);
+  });
+
+  it('should post the error with negative number', async () => {
+    await request(app).post('/calculate').send({ number: -1 }).set('Accept', 'application/json').expect(StatusCodes.BAD_REQUEST);
+  });
+
   it('should post the ok', async () => {
     await request(app)
       .post('/calculate')

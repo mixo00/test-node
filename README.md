@@ -75,3 +75,11 @@ luego para levantar el docker usamos
 ```shell
 docker run -dp 3000:3000 test-node
 ```
+
+# Test unitarios
+
+para correr los test solo tienes que ejecutar
+
+```shell
+npm run test
+```
